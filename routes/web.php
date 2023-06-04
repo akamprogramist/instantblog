@@ -25,9 +25,11 @@ use App\Http\Controllers\PublicPostController;
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
 
 Route::group(['prefix' => '{locale}'], function () {
-   Route::get('/', [PublicPostController::class, 'index'])->middleware('setLocale');
-   Route::get('home', [HomeController::class, 'index'])->name('home');
+   Route::middleware(['setLocale'])->group(function () {
+      Route::get('/', [PublicPostController::class, 'index']);
+   });
 });
+Route::get('home', [HomeController::class, 'index']);
 Route::get('posts/{post}', [PublicPostController::class, 'show']);
 Route::get('archives', [PublicPostController::class, 'archives']);
 Route::get('archiveposts', [PublicPostController::class, 'archiveposts']);
