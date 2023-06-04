@@ -21,9 +21,13 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\PublicPostController;
 
+
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
 
-Route::get('/', [PublicPostController::class, 'index']);
+Route::group(['prefix' => '{locale}'], function () {
+   Route::get('/', [PublicPostController::class, 'index'])->middleware('setLocale');
+   Route::get('home', [HomeController::class, 'index'])->name('home');
+});
 Route::get('posts/{post}', [PublicPostController::class, 'show']);
 Route::get('archives', [PublicPostController::class, 'archives']);
 Route::get('archiveposts', [PublicPostController::class, 'archiveposts']);
@@ -53,7 +57,6 @@ Route::post('follow/{user}', [FollowsController::class, 'store']);
 Route::get('settings', [SettingController::class, 'index']);
 Route::put('settings/{id}', [SettingController::class, 'update']);
 
-Route::get('home', [HomeController::class, 'index'])->name('home');
 Route::get('home/add', [HomeController::class, 'addpost']);
 
 Route::post('siteinstant', [InstantController::class, 'siteCheck']);
@@ -82,7 +85,7 @@ Route::resource('profile', ProfileController::class);
 Route::get('auth/{driver}', [LoginController::class, 'redirectToProvider']);
 Route::get('auth/{driver}/callback', [LoginController::class, 'handleProviderCallback']);
 
-Route::get('instant/clear', function() {
+Route::get('instant/clear', function () {
    Artisan::call('cache:clear');
    Artisan::call('config:clear');
    Artisan::call('view:clear');
@@ -91,4 +94,4 @@ Route::get('instant/clear', function() {
    return redirect('/');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

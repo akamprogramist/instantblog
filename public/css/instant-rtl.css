@@ -17,7 +17,7 @@
 }
 
 :root.light {
-    --bg-color: #f7f7f7;
+    --bg-color: red;
     --text-color: #212529;
     --card-bg: #ffffff;
     --card-brd: 1px solid rgba(0, 0, 0, 0.125);
@@ -38,6 +38,7 @@ html {
 body {
     background-color: var(--bg-color);
     color: var(--text-color);
+    direction: rtl;
 }
 
 a {
@@ -907,7 +908,6 @@ pre {
 }
 
 .navbar-light .navbar-nav .nav-link {
-    margin-left: 10%;
     color: #212529;
 }
 
