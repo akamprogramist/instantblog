@@ -128,7 +128,7 @@
                             <i class="icon-patch-check-fill verficon" title="@lang('messages.new.verified')"></i>
                         </div>
                     @endisset
-                </a>
+                </a >
                  <div class="card-like">
                 @if (auth()->check())
                     @if ($post->isLiked)

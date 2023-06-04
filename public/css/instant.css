@@ -371,7 +371,7 @@ pre {
     padding: 0.25rem;
     right: 1.25rem;
     bottom: 1rem;
-    z-index: 3;
+    z-index: 3; 
 }
 
 .card-count {

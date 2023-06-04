@@ -22,23 +22,23 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link me-3 d-none d-md-block {{ Request::is('popular') ? 'active' : '' }}"
-                    href="{{ url('/popular') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    href="{{ url('popular') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="@lang('messages.populartxt')"><i class="icon-heart nav-icon"></i></a>
-                <a class="nav-link d-md-none" href="{{ url('/popular') }}"><i class="icon-heart"></i>
+                <a class="nav-link d-md-none" href="{{ url('popular') }}"><i class="icon-heart"></i>
                     @lang('messages.populartxt')</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link me-3 d-none d-md-block {{ Request::is('categories') ? 'active' : '' }}"
-                    href="{{ url('/categories') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
+                    href="{{ url('categories') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="@lang('messages.categoriestxt')"><i class="icon-grid nav-icon"></i></a>
-                <a class="nav-link d-md-none" href="{{ url('/categories') }}"><i class="icon-grid"></i>
+                <a class="nav-link d-md-none" href="{{ url('categories') }}"><i class="icon-grid"></i>
                     @lang('messages.categoriestxt')</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link me-3 d-none d-md-block {{ Request::is('archives') ? 'active' : '' }}"
                     href="{{ url('/archives') }}" data-bs-toggle="tooltip" data-bs-placement="bottom"
                     title="@lang('messages.archivestxt')"><i class="icon-clock nav-icon"></i></a>
-                <a class="nav-link d-md-none" href="{{ url('/archives') }}"><i class="icon-clock"></i>
+                <a class="nav-link d-md-none" href="{{ url('archives') }}"><i class="icon-clock"></i>
                     @lang('messages.archivestxt')</a>
             </li>
             <li class="nav-item">
