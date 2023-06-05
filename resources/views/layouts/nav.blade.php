@@ -55,11 +55,11 @@
                     {{ app()->getLocale() }}
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="en">en</a>
+                    <li><a class="dropdown-item" href="{{ url('/en') }}">en</a>
                     </li>
-                    <li><a class="dropdown-item" href="ar">ar</a>
+                    <li><a class="dropdown-item" href="{{ url('/ar') }}">ar</a>
                     </li>
-                    <li><a class="dropdown-item" href="ku">ku</a>
+                    <li><a class="dropdown-item" href="{{ url('/ku') }}">ku</a>
                     </li>
                 </ul>
             </div>
