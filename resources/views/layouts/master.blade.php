@@ -9,7 +9,7 @@
     <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
     <title>{{ $setting->site_name . ' - ' . $setting->site_title }}</title>
     <link href="{{ asset('/css/bootstrap.min.css') }}" rel="stylesheet">
-    @if (app()->getLocale() == 'ar')
+    @if (app()->getLocale() == 'ar' or app()->getLocale() == 'ku')
         <link href="{{ asset('/css/instant-rtl.css') }}" rel="stylesheet">
     @else
         <link href="{{ asset('/css/instant.css') }}" rel="stylesheet">

@@ -31,7 +31,7 @@ Route::group(
       Route::get('/', [PublicPostController::class, 'index']);
       Route::get('archives', [PublicPostController::class, 'archives']);
       Route::get('home', [HomeController::class, 'index'])->name('home');
-      Route::get('posts/{post}', [PublicPostController::class, 'show']);
+      Route::get('/{post}', [PublicPostController::class, 'show']);
       Route::get('archiveposts', [PublicPostController::class, 'archiveposts']);
       Route::get('popular', [PublicPostController::class, 'popular']);
       Route::get('posts/{post}/amp', [PublicPostController::class, 'ampShow']);
