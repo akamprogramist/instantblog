@@ -14,7 +14,7 @@ class PublicPostController extends Controller
     //Get latest and where live posts and paginate them
     public function index()
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $authuser = Auth::user();
             if ($authuser->homepage == 1) {
                 $following = auth()->user()->follows()->pluck('id');
@@ -26,11 +26,14 @@ class PublicPostController extends Controller
                 return view('public.index', compact('posts'));
             }
         }
-            
+
         $posts = Post::latest()
             ->wherePostLive(1)
             ->paginate(30);
 
+        if (request()->wantsJson()) {
+            return response()->json($posts);
+        }
         return view('public.index', compact('posts'));
     }
 
@@ -132,7 +135,7 @@ class PublicPostController extends Controller
             ->where('id', '!=', $post->id)
             ->take(5)
             ->get();
-            
+
         return view('public.showamp', compact('post', 'related'));
     }
 
