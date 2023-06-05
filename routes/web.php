@@ -29,9 +29,9 @@ Route::group(
    ['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']],
    function () {
       Route::get('/', [PublicPostController::class, 'index']);
-      Route::get('archives', [PublicPostController::class, 'archives']);
       Route::get('home', [HomeController::class, 'index'])->name('home');
       Route::get('/{post}', [PublicPostController::class, 'show']);
+      Route::get('archives', [PublicPostController::class, 'archives']);
       Route::get('archiveposts', [PublicPostController::class, 'archiveposts']);
       Route::get('popular', [PublicPostController::class, 'popular']);
       Route::get('posts/{post}/amp', [PublicPostController::class, 'ampShow']);
