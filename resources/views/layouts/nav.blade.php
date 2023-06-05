@@ -52,11 +52,14 @@
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
                     aria-expanded="false">
-                    {{ app()->getLocale() == 'ar' ? 'ar' : 'en' }}
+                    lang
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item"
-                            href="{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}">{{ app()->getLocale() == 'ar' ? 'en' : 'ar' }}</a>
+                    <li><a class="dropdown-item" href="en">en</a>
+                    </li>
+                    <li><a class="dropdown-item" href="ar">ar</a>
+                    </li>
+                    <li><a class="dropdown-item" href="ku">ku</a>
                     </li>
                 </ul>
             </div>

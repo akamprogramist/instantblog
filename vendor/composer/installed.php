@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'laravel/laravel',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-master',
+        'version' => 'dev-master',
+        'reference' => 'e4025314bcf44b97701d6fc17e012fdbb7ebebfd',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -428,9 +428,9 @@
             'dev_requirement' => false,
         ),
         'laravel/laravel' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-master',
+            'version' => 'dev-master',
+            'reference' => 'e4025314bcf44b97701d6fc17e012fdbb7ebebfd',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -514,6 +514,15 @@
             'reference' => 'd6365b901b5c287dd41f143033315e2f777e1167',
             'type' => 'library',
             'install_path' => __DIR__ . '/../league/oauth1-client',
+            'aliases' => array(),
+            'dev_requirement' => false,
+        ),
+        'mcamara/laravel-localization' => array(
+            'pretty_version' => 'V1.8.0',
+            'version' => '1.8.0.0',
+            'reference' => '9b1779a963c1779d1977d8ad0558a681608e3ec1',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mcamara/laravel-localization',
             'aliases' => array(),
             'dev_requirement' => false,
         ),
@@ -781,8 +790,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(
