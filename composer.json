@@ -19,7 +19,8 @@
         "laravel/tinker": "^2.5",
         "mcamara/laravel-localization": "^1.8",
         "mews/purifier": "^3.3",
-        "rachidlaasri/laravel-installer": "^4.1"
+        "rachidlaasri/laravel-installer": "^4.1",
+        "stevebauman/location": "^6.6"
     },
     "require-dev": {
         "spatie/laravel-ignition": "^1.0",

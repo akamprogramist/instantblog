@@ -20,14 +20,17 @@ use App\Http\Controllers\SettingController;
 use App\Http\Controllers\PublicTagController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FileUploadController;
+use App\Http\Controllers\LocationController;
 use App\Http\Controllers\PublicPostController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
+
 
 
 Route::get('admin', [AdminController::class, 'index'])->name('admin');
 Route::group(
    ['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']],
    function () {
+      Route::get('location', [LocationController::class, 'index']);
       Route::get('/', [PublicPostController::class, 'index']);
       Route::get('home', [HomeController::class, 'index'])->name('home');
       Route::get('posts/{post}', [PublicPostController::class, 'show']);
