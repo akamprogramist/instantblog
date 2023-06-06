@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html dir="{{ app()->getLocale() === 'ar' ? 'rtl' : 'ltr' }}" class="{{ $theme }}">
+<html class="{{ $theme }}">
 
 <head>
     <meta charset="utf-8">
