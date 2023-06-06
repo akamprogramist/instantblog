@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Stevebauman\Location\Facades\Location;
 
 class PublicPostController extends Controller
 {
     //Get latest and where live posts and paginate them
     public function index()
     {
+
         if (Auth::check()) {
             $authuser = Auth::user();
             if ($authuser->homepage == 1) {
@@ -34,7 +38,41 @@ class PublicPostController extends Controller
         if (request()->wantsJson()) {
             return response()->json($posts);
         }
-        return view('public.index', compact('posts'));
+
+        /* $ip = $request->ip(); Dynamic IP address */
+        $ip = '194.124.76.41'; /* Static IP address */
+        $userIp = Location::get($ip);
+
+        // return dd($userIp);
+
+        $location = $userIp->cityName;
+        if (empty($location)) {
+            dd('refresh the page');
+        }
+
+        $client = new Client();
+        try {
+            $response = $client->get('https://api.weatherapi.com/v1/current.json', [
+                'query' => [
+                    'key' => 'eb697c2037e24266a2093429230606',
+                    'q' => $location
+                ]
+            ]);
+            $weatherData = $response->getBody();
+            $weatherData = json_decode($weatherData, true);
+
+            if (isset($weatherData['error'])) {
+                dd("the problem is in the api");
+            }
+            $icon = $weatherData['current']['condition']['icon'];
+            $text = $weatherData['current']['condition']['text'];
+            $weather = ["icon" => $icon, "text" => $text, "location" => $location];
+        } catch (Exception $e) {
+            dd('error is in the api request');
+        }
+
+        
+        return view('public.index', compact('posts', 'weather'));
     }
 
     //Show single post
