@@ -18,6 +18,7 @@
         <div id="maincontent" class="container-fluid mt-5 d-none">
             <div class="row">
                 <div class="grid" data-columns>
+                    @include('public.money')
                     @include('public.weather')
                     @forelse($posts as $key => $post)
                         @include('public.post')

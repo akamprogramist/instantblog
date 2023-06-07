@@ -21,6 +21,7 @@ use App\Http\Controllers\PublicTagController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FileUploadController;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\MoneyController;
 use App\Http\Controllers\PublicPostController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
@@ -85,6 +86,7 @@ Route::group(
       Route::resource('contents', PostController::class);
       Route::resource('comments', CommentController::class);
       Route::resource('profile', ProfileController::class);
+      Route::resource('money', MoneyController::class);
 
       Route::get('auth/{driver}', [LoginController::class, 'redirectToProvider']);
       Route::get('auth/{driver}/callback', [LoginController::class, 'handleProviderCallback']);

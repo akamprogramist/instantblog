@@ -6,6 +6,7 @@ use Exception;
 use App\Models\Page;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Money;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,8 +72,9 @@ class PublicPostController extends Controller
             dd('error is in the api request');
         }
 
-        
-        return view('public.index', compact('posts', 'weather'));
+        $money = Money::where('id', 1)->first();
+
+        return view('public.index', compact('posts', 'weather', 'money'));
     }
 
     //Show single post
