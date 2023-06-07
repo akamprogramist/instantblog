@@ -44,8 +44,8 @@ Route::group(
 
       Route::post('post/{id}/click', [LikeController::class, 'likePost']);
 
-      Route::get('/categories', [PublicTagController::class, 'tags']);
-      Route::get('/category/{tag}', [PublicTagController::class, 'index']);
+      Route::get('categories', [PublicTagController::class, 'tags']);
+      Route::get('category/{tag}', [PublicTagController::class, 'index']);
 
       Route::get('adminprofile', [UserController::class, 'adminProfile']);
       Route::put('adminprofile/{id}', [UserController::class, 'adminUpdate']);

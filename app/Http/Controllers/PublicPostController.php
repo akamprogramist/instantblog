@@ -139,7 +139,9 @@ class PublicPostController extends Controller
             ->filter(request(['month', 'year']))
             ->wherePostLive(1)
             ->paginate(30);
-
+        if (request()->wantsJson()) {
+            return response()->json($posts);
+        }
         return view('public.archiveposts', compact('posts'));
     }
     //Find Popular contents
@@ -149,7 +151,9 @@ class PublicPostController extends Controller
             ->withCount('likes')
             ->orderBy('likes_count', 'desc')
             ->paginate(30);
-
+        if (request()->wantsJson()) {
+            return response()->json($posts);
+        }
         return view('public.popular', compact('posts'));
     }
 
