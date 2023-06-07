@@ -47,7 +47,9 @@ class RegisteredUserController extends Controller
         ]));
 
         event(new Registered($user));
-
+        if (request()->wantsJson()) {
+            return response()->json($request);
+        }
         return redirect(RouteServiceProvider::HOME);
     }
 }

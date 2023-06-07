@@ -36,7 +36,7 @@ class LoginController extends Controller
         } catch (Exception $e) {
             return redirect('auth/' . $driver);
         }
-        
+
         $authUser = $this->findOrCreateUser($user);
 
         Auth::login($authUser, true);
@@ -46,7 +46,7 @@ class LoginController extends Controller
     public function findOrCreateUser($User)
     {
         $authUser = User::where('social_id', $User->id)->first();
-        $authEmail = User::where('email', $User->email)->first();        
+        $authEmail = User::where('email', $User->email)->first();
 
         if ($authUser) {
             return $authUser;
