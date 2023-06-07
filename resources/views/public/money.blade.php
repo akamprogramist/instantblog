@@ -1,8 +1,3 @@
-<div class="card border-one text-center">
-    <div class="bg-over">
-        <div class="card-blog-body">
-            <h4 class="mt-4">USD {{ $money['money_usd'] }}</h4>
-            <p class="card-text mb-5">IQD {{ $money['money_iqd'] }}</p>
-        </div>
-    </div>
+<div class="d-flex p-1 align-items-center">
+    <h6 class="mt-2">USD {{ $money['money_usd'] }} = IQD {{ $money['money_iqd'] }}</h6>
 </div>

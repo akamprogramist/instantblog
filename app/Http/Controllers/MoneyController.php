@@ -12,11 +12,11 @@ class MoneyController extends Controller
         $this->middleware('can:admin-area');
     }
 
-    public function index()
-    {
-        $money = Money::where('id', 1)->first();
-        return view('money.index', compact('money'));
-    }
+    // public function index()
+    // {
+    //     $money = Money::where('id', 1)->first();
+    //     return view('layouts.nav', compact('money'));
+    // }
     public function update($id)
     {
         $money = Money::findOrFail($id);

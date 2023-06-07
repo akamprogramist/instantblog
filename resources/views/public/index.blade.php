@@ -15,11 +15,13 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
         </div>
+        <div class="d-flex ms-5 me-5">
+            @include('public.money')
+            @include('public.weather')
+        </div>
         <div id="maincontent" class="container-fluid mt-5 d-none">
             <div class="row">
                 <div class="grid" data-columns>
-                    @include('public.money')
-                    @include('public.weather')
                     @forelse($posts as $key => $post)
                         @include('public.post')
                         @if (!empty($setting->between_ads))
