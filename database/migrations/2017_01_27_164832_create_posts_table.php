@@ -21,6 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('post_color', 91)->nullable();
             $table->text('post_desc')->nullable();
             $table->string('post_title', 191)->nullable();
+            $table->string('post_size', 11)->default('xl');
             $table->string('post_slug', 191)->nullable();
             $table->text('post_media')->nullable();
             $table->text('post_video')->nullable();

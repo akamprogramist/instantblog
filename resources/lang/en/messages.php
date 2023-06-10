@@ -6,7 +6,7 @@ return [
      *
      * General translations.
      *
-     */    
+     */
     'hometxt' => 'Home',
     'populartxt' => 'Popular',
     'categoriestxt' => 'Categories',
@@ -121,7 +121,7 @@ return [
         'nonotification' => 'You dont have any notifications',
         'notdeleted' => 'All notifications are deleted !',
         'mentioned' => 'A user mentioned you on comment on this post :'
-         
+
     ],
 
     /**
@@ -199,7 +199,9 @@ return [
         'tiktok' => 'Tiktok Post',
         'tiktok_help' => 'Enter Tiktok URL and press Embed',
         'category' => 'Category',
+        'size' => 'Size',
         'select_category' => 'Chose Category',
+        'select_size' => 'Chose Size',
         'publish' => 'Publish',
         'update' => 'Update Post',
         'processing' => 'Processing...',
@@ -214,7 +216,7 @@ return [
         'noembed' => 'No Embed found with this URL',
     ],
 
-     /**
+    /**
      *
      * Updated translation files here:
      * When you update the script check the version number,
@@ -224,7 +226,7 @@ return [
      **/
 
     'new' => [
-         /* version 3.0 translation */
+        /* version 3.0 translation */
         'dark' => 'Dark',
         'light' => 'Light',
         'userdeleted' => 'User Deleted!',

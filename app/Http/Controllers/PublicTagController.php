@@ -50,7 +50,9 @@ class PublicTagController extends Controller
         } catch (Exception $e) {
             dd('error is in the api request');
         }
-
+        if (request()->wantsJson()) {
+            return response()->json($posts);
+        }
         $money = Money::where('id', 1)->first();
         return view('public.index', compact('posts', 'tag', 'weather', 'money'));
     }

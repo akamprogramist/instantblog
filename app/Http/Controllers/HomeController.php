@@ -37,7 +37,7 @@ class HomeController extends Controller
 
     public function store(Request $request)
     {
-        $attributes = request(['post_title', 'post_instant', 'post_color', 'post_slug', 'post_desc', 'post_media', 'post_video', 'media_alt']);
+        $attributes = request(['post_title', 'post_size', 'post_instant', 'post_color', 'post_slug', 'post_desc', 'post_media', 'post_video', 'media_alt']);
 
         $validator = Validator::make($request->all(), [
             'content.*' => 'required',
@@ -46,7 +46,7 @@ class HomeController extends Controller
         $attributes['post_slug'] = null;
         $attributes['user_id'] = Auth::user()->id;
 
-        if(auth()->user()->can('publish-post')) {
+        if (auth()->user()->can('publish-post')) {
             $attributes['post_live'] = '1';
         } else {
             $attributes['post_live'] = Setting::first()->check_cont;
@@ -63,6 +63,7 @@ class HomeController extends Controller
                 $contents = $request->input('content');
                 $extras = $request->input('extra');
                 $links = $request->input('link');
+                $size = $request->input('size');
                 $blanks = $request->input('blank');
                 $social = array('tweet', 'facebook', 'instagram', 'pinterest', 'tiktok');
                 foreach ($contents as $key => $value) {
@@ -71,7 +72,7 @@ class HomeController extends Controller
                         'body' => $value
                     ];
 
-                    if ($types[$key] == 'image' OR 'header') {
+                    if ($types[$key] == 'image' or 'header') {
                         $collections[$key]['extra'] = $extras[$key];
                     }
 
@@ -96,13 +97,13 @@ class HomeController extends Controller
 
             $post = Post::create($attributes);
             $postid = $post->id;
-            
+
             if (isset($request->tag_id)) {
                 $post->tags()->sync(request(['tag_id']));
             } else {
                 $post->tags()->sync(array());
             }
-            
+
             if ($request->has('content')) {
                 foreach ($collections as $collection) {
                     $collection['post_id'] = $postid;
@@ -110,10 +111,10 @@ class HomeController extends Controller
                 }
             }
 
-            return response()->json(['success'=>__('messages.postcreated')]);
+            return response()->json(['success' => __('messages.postcreated')]);
         }
 
-        return response()->json(['error'=>$validator->errors()->all()]);
+        return response()->json(['error' => $validator->errors()->all()]);
     }
 
     public function show($id)
@@ -139,7 +140,7 @@ class HomeController extends Controller
         $attributes = request(['post_title', 'post_slug', 'post_instant', 'post_color', 'post_desc', 'post_media', 'post_video', 'post_live', 'edit_id', 'media_alt']);
 
         $attributes['edit_id'] = Auth::user()->id;
-        
+
         if (!empty($request->post_video)) {
             $attributes['post_video'] = substr($request->post_video, strrpos($request->post_video, 'v=') + 2);
             $attributes['video_url'] = $request->post_video;
@@ -181,7 +182,7 @@ class HomeController extends Controller
                         'body' => $value
                     ];
 
-                    if ($types[$key] == 'image' OR 'header') {
+                    if ($types[$key] == 'image' or 'header') {
                         $collections[$key]['extra'] = $extras[$key];
                     }
 
@@ -228,16 +229,16 @@ class HomeController extends Controller
                 $post->contents()->delete();
             }
 
-            if ($request->has('content')) {                
+            if ($request->has('content')) {
                 foreach ($collections as $collection) {
                     Content::create($collection);
                 }
             }
 
-            return response()->json(['success'=>__('messages.postedited')]);
+            return response()->json(['success' => __('messages.postedited')]);
         }
 
-        return response()->json(['error'=>$validator->errors()->all()]);
+        return response()->json(['error' => $validator->errors()->all()]);
     }
 
     public function destroy($id)
@@ -245,8 +246,8 @@ class HomeController extends Controller
         //Delete single post
         $post = Post::findOrFail($id);
 
-        if(!empty($post->post_media)) {
-            $filename = public_path().'/uploads/'.$post->post_media;
+        if (!empty($post->post_media)) {
+            $filename = public_path() . '/uploads/' . $post->post_media;
             $delete_success = \File::delete($filename);
         }
 
@@ -259,7 +260,7 @@ class HomeController extends Controller
                 }
 
                 if ($item->type == 'image') {
-                    $filename = public_path().'/uploads/'.$item->body;
+                    $filename = public_path() . '/uploads/' . $item->body;
                     $delete_success = \File::delete($filename);
                 }
             }
@@ -286,15 +287,15 @@ class HomeController extends Controller
         //Delete single content
         $delid = $request->id;
         $content = Content::findOrFail($delid);
-        if(!empty($content->embed)) {
+        if (!empty($content->embed)) {
             $content->embed->delete();
-        }        
+        }
         $success = $content->delete();
 
         if ($success) {
-            return response()->json(['success'=> __('messages.contdeleted')]);
+            return response()->json(['success' => __('messages.contdeleted')]);
         }
-            
-        return response()->json(['error'=> __('messages.contnotdeleted')]);
+
+        return response()->json(['error' => __('messages.contnotdeleted')]);
     }
 }
