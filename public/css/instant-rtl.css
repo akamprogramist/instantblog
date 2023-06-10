@@ -17,7 +17,7 @@
 }
 
 :root.light {
-    --bg-color: red;
+    --bg-color: #f7f7f7;
     --text-color: #212529;
     --card-bg: #ffffff;
     --card-brd: 1px solid rgba(0, 0, 0, 0.125);
