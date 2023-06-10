@@ -27,10 +27,10 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 
 
-Route::get('admin', [AdminController::class, 'index'])->name('admin');
 Route::group(
    ['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']],
    function () {
+      Route::get('admin', [AdminController::class, 'index'])->name('admin');
       Route::get('/', [PublicPostController::class, 'index']);
       Route::get('home', [HomeController::class, 'index'])->name('home');
       Route::get('posts/{post}', [PublicPostController::class, 'show']);
