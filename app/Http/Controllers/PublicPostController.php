@@ -36,9 +36,7 @@ class PublicPostController extends Controller
             ->wherePostLive(1)
             ->paginate(30);
 
-        if (request()->wantsJson()) {
-            return response()->json($posts);
-        }
+
 
         /* $ip = $request->ip(); Dynamic IP address */
         $ip = '194.124.76.41'; /* Static IP address */
@@ -73,6 +71,14 @@ class PublicPostController extends Controller
         }
 
         $money = Money::where('id', 1)->first();
+
+        if (request()->wantsJson()) {
+            return response()->json([
+                'posts' => $posts,
+                'weather' => $weather ?? null,
+                'money' => $money ?? null
+            ]);
+        }
 
         return view('public.index', compact('posts', 'weather', 'money'));
     }
