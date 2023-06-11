@@ -23,7 +23,6 @@ class PublicTagController extends Controller
         if (request()->wantsJson()) {
             return response()->json([
                 'posts' => $posts,
-                'tag' => $tag,
             ]);
         }
         return view('public.index', compact('posts', 'tag'));
