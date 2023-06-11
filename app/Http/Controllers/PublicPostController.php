@@ -146,7 +146,9 @@ class PublicPostController extends Controller
             ->wherePostLive(1)
             ->paginate(30);
         if (request()->wantsJson()) {
-            return response()->json($posts);
+            return response()->json([
+                'posts' => $posts,
+            ]);
         }
         return view('public.archiveposts', compact('posts'));
     }
@@ -158,7 +160,9 @@ class PublicPostController extends Controller
             ->orderBy('likes_count', 'desc')
             ->paginate(30);
         if (request()->wantsJson()) {
-            return response()->json($posts);
+            return response()->json([
+                'posts' => $posts,
+            ]);
         }
         return view('public.popular', compact('posts'));
     }

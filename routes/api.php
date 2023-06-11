@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
+use App\Http\Controllers\PublicPostController;
 use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 
 /*
@@ -16,9 +17,14 @@ use Mcamara\LaravelLocalization\Facades\LaravelLocalization;
 |
 */
 
+
+Route::get('/posts', [PublicPostController::class, 'index']);
 Route::group(
     ['prefix' => 'api'],
     function () {
+        Route::get('/user', function (Request $request) {
+            return $request->user();
+        });
         Route::group(
             ['prefix' => LaravelLocalization::setLocale(), 'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']],
             function () {
