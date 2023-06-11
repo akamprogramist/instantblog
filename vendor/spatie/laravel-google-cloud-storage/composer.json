@@ -1,0 +1,63 @@
+{
+    "name": "spatie/laravel-google-cloud-storage",
+    "description": "Google Cloud Storage filesystem driver for Laravel",
+    "keywords": [
+        "spatie",
+        "laravel",
+        "laravel-google-cloud-storage"
+    ],
+    "homepage": "https://github.com/spatie/laravel-google-cloud-storage",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Alex Vanderbist",
+            "email": "alex@spatie.be",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.0",
+        "illuminate/contracts": "^9.0|^10.0",
+        "illuminate/filesystem": "^9.0|^10.0",
+        "illuminate/support": "^9.0|^10.0",
+        "league/flysystem-google-cloud-storage": "^3.0.15"
+    },
+    "require-dev": {
+        "brianium/paratest": "^6.4",
+        "nunomaduro/collision": "^6.1|^7.0",
+        "orchestra/testbench": "^7.0|^8.0",
+        "phpunit/phpunit": "^9.6|^10.0",
+        "spatie/laravel-ray": "^1.29",
+        "vimeo/psalm": "^4.18|^5.9"
+    },
+    "autoload": {
+        "psr-4": {
+            "Spatie\\GoogleCloudStorage\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Spatie\\GoogleCloudStorage\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "psalm": "vendor/bin/psalm",
+        "test": "./vendor/bin/testbench package:test --parallel --no-coverage",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Spatie\\GoogleCloudStorage\\GoogleCloudStorageServiceProvider"
+            ],
+            "aliases": {
+                "GoogleCloudStorage": "Spatie\\GoogleCloudStorage\\GoogleCloudStorageFacade"
+            }
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
