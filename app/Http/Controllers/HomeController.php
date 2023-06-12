@@ -31,7 +31,13 @@ class HomeController extends Controller
                 ->wherePostLive(0)
                 ->simplePaginate(15);
         }
-
+        $authuser = Auth::user();
+        if (request()->wantsJson()) {
+            return response()->json([
+                'posts' => $posts,
+                'authuser' => $authuser
+            ]);
+        }
         return view('home', compact('posts'));
     }
 
