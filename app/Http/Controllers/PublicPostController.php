@@ -16,7 +16,7 @@ use Stevebauman\Location\Facades\Location;
 class PublicPostController extends Controller
 {
     //Get latest and where live posts and paginate them
-    public function index()
+    public function index(Request $request)
     {
 
         if (Auth::check()) {
@@ -38,8 +38,8 @@ class PublicPostController extends Controller
 
 
 
-        /* $ip = $request->ip(); Dynamic IP address */
-        $ip = '194.124.76.41'; /* Static IP address */
+        // $ip = $request->ip();
+        $ip = '194.124.76.41';
         $userIp = Location::get($ip);
 
         // return dd($userIp);
@@ -118,6 +118,13 @@ class PublicPostController extends Controller
             $editby = User::where('id', $post->edit_id)->first();
         } else {
             $editby = null;
+        }
+        $user = User::find($post->user_id);
+        if (request()->wantsJson()) {
+            return response()->json([
+                'post' => $post,
+                'user' => $user
+            ]);
         }
 
         return view('public.show', compact('post', 'next', 'previous', 'random', 'related', 'editby'));
