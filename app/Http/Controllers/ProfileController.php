@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use Image;
+use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
-use Image;
-use App\Models\User;
-use App\Models\Post;
+use Google\Cloud\Storage\StorageClient;
+use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
@@ -106,15 +108,24 @@ class ProfileController extends Controller
                 ],
             ]);
 
+
             if ($request->hasFile('avatar')) {
                 $postimage = $request->file('avatar');
                 $filename = time() . '.' . $postimage->getClientOriginalExtension();
                 Image::make($postimage)->resize(100, 100)->save(public_path('/images/' . $filename));
-                $attributes['avatar'] = $filename;
+
+                // Upload the file to Google Cloud Storage
+                $storage = Storage::disk('gcs');
+                $storage->put('images/' . $filename, file_get_contents(public_path('/images/' . $filename)));
+
+                // Get the public URL of the file
+                $url = $storage->url('images/' . $filename);
+
+                // Update the user's avatar attribute with the public URL
+                $attributes['avatar'] = $url;
             } else {
                 $attributes['avatar'] = $user->avatar;
             }
-
             if ($request->hasFile('cover')) {
                 $postimage = $request->file('cover');
                 $filename = time() . '.' . $postimage->getClientOriginalExtension();

@@ -121,8 +121,7 @@
                     </div>
                 @endif
                 <div class="bg-over">
-                    <img class="card-img border-two" src="{{ url('/uploads/' . $post->post_media) }}"
-                        alt="{{ $post->media_alt }}">
+                    <img class="card-img border-two" src="{{ $post->post_media }}" alt="{{ $post->media_alt }}">
                     <a class="link-over" href="{{ url('/posts/' . $post->post_slug) }}"></a>
                     <div class="card-blog-body">
                         <small class="me-3"><i class="icon-clock me-2"></i>

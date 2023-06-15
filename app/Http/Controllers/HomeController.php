@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Image;
+use Validator;
 use App\Models\Post;
 use App\Models\Content;
 use App\Models\Setting;
+use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Image;
-use Validator;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
