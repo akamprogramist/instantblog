@@ -84,8 +84,7 @@
                                                 value="{{ $post->post_media }}">
                                             <div class="fileinfo d-flex">
                                                 <div class='flex-shrink-0'>
-                                                    <img class='imgthumb img-fluid me-2'
-                                                        src="{{ url('/uploads/' . $post->post_media) }}">
+                                                    <img class='imgthumb img-fluid me-2' src="{{ $post->post_media }}">
                                                 </div>
                                                 <div class='flex-grow-1 ms-3'>
                                                     <input class='form-control' type='text' name='media_alt'
@@ -236,8 +235,7 @@
 
                                             <div class="fileinfo d-flex">
                                                 <div class='flex-shrink-0'>
-                                                    <img class='imgthumb img-fluid me-2'
-                                                        src="{{ url('/uploads/' . $content->body) }}">
+                                                    <img class='imgthumb img-fluid me-2' src="{{ $content->body }}">
                                                 </div>
                                                 <div class='flex-grow-1 ms-3'>
                                                     <div class="input-group">
@@ -514,7 +512,6 @@
             var embedURL = "{{ url('admincp/postEmbed') }}";
             var imgURL = "{{ url('admincp/uploadImg') }}";
             var delURL = "{{ url('admincp/deleteImg') }}";
-            var avatarURL = "{{ url('/uploads/') }}";
             var delContent = "{{ url('/delete/content') }}";
             var embedtxt = "@lang('messages.form.embed')";
             var editortxt = "@lang('messages.form.editor')";

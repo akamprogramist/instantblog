@@ -316,7 +316,7 @@
             var embedURL = "{{ url('admincp/postEmbed') }}";
             var imgURL = "{{ url('admincp/uploadImg') }}";
             var delURL = "{{ url('admincp/deleteImg') }}";
-            var avatarURL = "{{ url('/uploads/') }}";
+            var avatarURL = "";
             var delContent = "{{ url('/delete/content') }}";
             var embedtxt = "@lang('messages.form.embed')";
             var editortxt = "@lang('messages.form.editor')";
