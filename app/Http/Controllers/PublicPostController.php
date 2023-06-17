@@ -31,10 +31,10 @@ class PublicPostController extends Controller
                 return view('public.index', compact('posts'));
             }
         }
+
         $posts = Post::latest()
             ->wherePostLive(1)
             ->paginate(30);
-        $users = User::all();
 
         // $ip = $request->ip();
         $ip = '194.124.76.41';
@@ -73,7 +73,6 @@ class PublicPostController extends Controller
         if (request()->wantsJson()) {
             return response()->json([
                 'posts' => $posts,
-                'users' => $users,
                 'weather' => $weather ?? null,
                 'money' => $money ?? null
             ]);
@@ -182,8 +181,47 @@ class PublicPostController extends Controller
             ->search($s)
             ->wherePostLive(1)
             ->paginate(30);
+        // $ip = $request->ip();
+        $ip = '194.124.76.41';
+        $userIp = Location::get($ip);
 
-        return view('public.index', compact('posts'));
+        // return dd($userIp);
+
+        $location = $userIp->cityName;
+        if (empty($location)) {
+            dd('refresh the page');
+        }
+
+        $client = new Client();
+        try {
+            $response = $client->get('https://api.weatherapi.com/v1/current.json', [
+                'query' => [
+                    'key' => 'eb697c2037e24266a2093429230606',
+                    'q' => $location
+                ]
+            ]);
+            $weatherData = $response->getBody();
+            $weatherData = json_decode($weatherData, true);
+
+            if (isset($weatherData['error'])) {
+                dd("the problem is in the api");
+            }
+            $icon = $weatherData['current']['condition']['icon'];
+            $text = $weatherData['current']['condition']['text'];
+            $weather = ["icon" => $icon, "text" => $text, "location" => $location];
+        } catch (Exception $e) {
+            dd('error is in the api request');
+        }
+
+        $money = Money::where('id', 1)->first();
+        if (request()->wantsJson()) {
+            return response()->json([
+                'posts' => $posts,
+                'weather' => $weather ?? null,
+                'money' => $money ?? null
+            ]);
+        }
+        return view('public.index', compact('posts', 'money', 'weather'));
     }
 
 
