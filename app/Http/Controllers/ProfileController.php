@@ -134,7 +134,13 @@ class ProfileController extends Controller
                 $postimage = $request->file('cover');
                 $filename = time() . '.' . $postimage->getClientOriginalExtension();
                 Image::make($postimage)->resize(1440, 200)->save(public_path('/uploads/' . $filename));
-                $attributes['cover'] = $filename;
+                // Upload the file to Google Cloud Storage
+                $storage = Storage::disk('gcs');
+                $storage->put('images/' . $filename, file_get_contents(public_path('/images/' . $filename)));
+
+                // Get the public URL of the file
+                $url = $storage->url('images/' . $filename);
+                $attributes['cover'] = $url;
             } else {
                 $attributes['cover'] = $user->cover;
             }

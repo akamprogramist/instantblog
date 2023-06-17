@@ -4,7 +4,7 @@
 @endsection
 @section('jumbotron')
 <div class="header">
-    <img class="header-img-top" src="{{ url('/uploads/'. $user->cover) }}" alt="{{ $user->name }}">
+    <img class="header-img-top" src="{{  $user->cover }}" alt="{{ $user->name }}">
     <div class="container-fluid">
         <div class="header-body mt-n6">
             @include('public.profilehead')

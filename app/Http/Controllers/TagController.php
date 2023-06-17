@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Image;
 use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use Image;
+use Illuminate\Support\Facades\Storage;
 
 class TagController extends Controller
 {
@@ -13,7 +14,7 @@ class TagController extends Controller
     {
         $this->middleware('can:admin-area');
     }
-    
+
     public function index()
     {
         $tags = Tag::orderBy('id', 'DESC')
@@ -40,8 +41,14 @@ class TagController extends Controller
         if ($request->hasFile('tag_media')) {
             $postimage = $request->file('tag_media');
             $filename = time() . '.' . $postimage->getClientOriginalExtension();
-            Image::make($postimage)->resize(400, 200)->save(public_path('/uploads/'. $filename));
-            $attributes['tag_media'] = $filename;
+            Image::make($postimage)->resize(400, 200)->save(public_path('/uploads/' . $filename));
+            // Upload the file to Google Cloud Storage
+            $storage = Storage::disk('gcs');
+            $storage->put('uploads/' . $filename, file_get_contents(public_path('/uploads/' . $filename)));
+
+            // Get the public URL of the file
+            $url = $storage->url('uploads/' . $filename);
+            $attributes['tag_media'] = $url;
         }
 
         Tag::create($attributes);
@@ -86,10 +93,16 @@ class TagController extends Controller
         if ($request->hasFile('tag_media')) {
             $postimage = $request->file('tag_media');
             $filename = time() . '.' . $postimage->getClientOriginalExtension();
-            Image::make($postimage)->resize(400, 200)->save(public_path('/uploads/'. $filename));
-            $attributes['tag_media'] = $filename;
+            Image::make($postimage)->resize(400, 200)->save(public_path('/uploads/' . $filename));
+            // Upload the file to Google Cloud Storage
+            $storage = Storage::disk('gcs');
+            $storage->put('uploads/' . $filename, file_get_contents(public_path('/uploads/' . $filename)));
+
+            // Get the public URL of the file
+            $url = $storage->url('uploads/' . $filename);
+            $attributes['tag_media'] = $url;
         } else {
-            $attributes['tag_media'] = $tag->tag_media ;
+            $attributes['tag_media'] = $tag->tag_media;
         }
 
         $tag->update($attributes);
@@ -101,8 +114,8 @@ class TagController extends Controller
     public function destroy($id)
     {
         $tag = Tag::findOrFail($id);
-        if(!empty($tag->tag_media)) {
-            $filename = public_path().'/uploads/'.$tag->tag_media;
+        if (!empty($tag->tag_media)) {
+            $filename = public_path() . '/uploads/' . $tag->tag_media;
             $delete_success = \File::delete($filename);
         }
         $tag->posts()->detach();

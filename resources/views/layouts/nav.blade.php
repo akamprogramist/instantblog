@@ -1,7 +1,7 @@
 <nav id="mainnav" class="navbar navbar-expand-md navbar-{{ $theme }} bg-nav">
     <a class="navbar-brand" href="{{ url('/') }}">
-        <img class="theme-btn light" src="{{ url('/images/' . $setting->site_logo) }}" alt="logo">
-        <img class="theme-btn dark" src="{{ url('/images/' . $setting->site_logo_light) }}" alt="logo">
+        <img class="theme-btn light" src="{{ $setting->site_logo }}" alt="logo">
+        <img class="theme-btn dark" src="{{ $setting->site_logo_light }}" alt="logo">
     </a>
     <div class="ms-auto me-4 me-md-0 order-md-2 navbar-nav">
         <button class="nav-link theme-btn light" onclick="setTheme('light')"><i class="icon-sun nav-icon"></i></button>
