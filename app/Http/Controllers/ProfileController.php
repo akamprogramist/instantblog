@@ -32,8 +32,12 @@ class ProfileController extends Controller
             ->whereUserId($user->id)
             ->withCount('likes')
             ->get();
+        $followers = $user->followers()->paginate(30);
+        $follows = $user->follows()->paginate(30);
         if (request()->wantsJson()) {
             return response()->json([
+                'followers' => $followers,
+                'follows' => $follows,
                 'posts' => $posts,
                 'user' => $user,
                 'point' => $point
