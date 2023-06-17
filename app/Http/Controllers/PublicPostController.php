@@ -31,12 +31,10 @@ class PublicPostController extends Controller
                 return view('public.index', compact('posts'));
             }
         }
-
         $posts = Post::latest()
             ->wherePostLive(1)
             ->paginate(30);
-
-
+        $users = User::all();
 
         // $ip = $request->ip();
         $ip = '194.124.76.41';
@@ -75,6 +73,7 @@ class PublicPostController extends Controller
         if (request()->wantsJson()) {
             return response()->json([
                 'posts' => $posts,
+                'users' => $users,
                 'weather' => $weather ?? null,
                 'money' => $money ?? null
             ]);
