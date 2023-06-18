@@ -41,8 +41,10 @@ class AuthenticatedSessionController extends Controller
             ->paginate(30);
         $followers = $authuser->followers()->paginate(30);
         $follows = $authuser->follows()->paginate(30);
+        $token = $authuser->createToken('AuthToken')->plainTextToken;
         if (request()->wantsJson()) {
             return response()->json([
+                'token' => $token,
                 'authuser' => $authuser,
                 'followers' => $followers,
                 'follows' => $follows,
@@ -60,12 +62,11 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        auth()->user()->tokens()->delete();
         Auth::guard('web')->logout();
-
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
         return redirect('/');
     }
 }

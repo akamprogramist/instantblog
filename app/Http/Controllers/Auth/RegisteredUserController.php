@@ -45,11 +45,12 @@ class RegisteredUserController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
         ]));
-
+        $token = $user->createToken('AuthToken')->plainTextToken;
         event(new Registered($user));
         if (request()->wantsJson()) {
             return response()->json([
-                'user' => $user
+                'user' => $user,
+                'token' => $token
             ]);
         }
         return redirect(RouteServiceProvider::HOME);
