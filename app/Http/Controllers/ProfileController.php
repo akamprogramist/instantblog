@@ -21,6 +21,9 @@ class ProfileController extends Controller
 
     public function index(Request $request)
     {
+        if (!$request->hasHeader('Authorization')) {
+            return response()->json(['message' => 'Missing token'], 401);
+        }
         $token = $request->session()->get('token');
         $authuser = Auth::user();
         if (Gate::allows('moderator-post')) {
