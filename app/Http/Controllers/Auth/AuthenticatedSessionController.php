@@ -32,16 +32,16 @@ class AuthenticatedSessionController extends Controller
     {
         $request->authenticate();
 
-        $request->session()->regenerate();
-
         $authuser = Auth::user();
+        $token = $authuser->createToken('AuthToken')->plainTextToken;
+        $request->session()->regenerate();
+        $request->session()->put('token', $token);
         $posts = Post::latest()
             ->wherePostLive(1)
             ->whereUserId($authuser->id)
             ->paginate(30);
         $followers = $authuser->followers()->paginate(30);
         $follows = $authuser->follows()->paginate(30);
-        $token = $authuser->createToken('AuthToken')->plainTextToken;
         if (request()->wantsJson()) {
             return response()->json([
                 'token' => $token,

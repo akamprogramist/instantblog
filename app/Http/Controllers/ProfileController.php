@@ -8,6 +8,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 use Google\Cloud\Storage\StorageClient;
 use Illuminate\Support\Facades\Storage;
 
@@ -16,6 +17,34 @@ class ProfileController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['show', 'followers', 'following']]);
+    }
+
+    public function index(Request $request)
+    {
+        $token = $request->session()->get('token');
+        $authuser = Auth::user();
+        if (Gate::allows('moderator-post')) {
+            $posts = Post::orderBy('id', 'DESC')
+                ->wherePostLive(0)
+                ->simplePaginate(15);
+        } else {
+            $posts = Post::orderBy('id', 'DESC')
+                ->whereUserId(auth()->user()->id)
+                ->wherePostLive(0)
+                ->simplePaginate(15);
+        }
+        $followers = $authuser->followers()->paginate(30);
+        $follows = $authuser->follows()->paginate(30);
+        if (request()->wantsJson()) {
+            return response()->json([
+                'token' => $token,
+                'authuser' => $authuser,
+                'followers' => $followers,
+                'follows' => $follows,
+                'posts' => $posts
+            ]);
+        }
+        return view('home', compact('posts'));
     }
 
     public function show($username)
