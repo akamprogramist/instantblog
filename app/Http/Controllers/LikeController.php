@@ -19,10 +19,18 @@ class LikeController extends Controller
         return json_encode(shortNumber($post->likes()->count()));
     }
 
+
+    public function getLikesCount($postId)
+    {
+        $post = Post::findOrFail($postId);
+        $likesCount = $post->likes()->count();
+
+        return response()->json(['likesCount' => $likesCount]);
+    }
+
     public function handleLike($type, $id, $post)
     {
-        $existing_like = Like::withTrashed()->whereLikeableType($type)->
-        whereLikeableId($id)->whereUserId(Auth::id())->first();
+        $existing_like = Like::withTrashed()->whereLikeableType($type)->whereLikeableId($id)->whereUserId(Auth::id())->first();
 
         if (is_null($existing_like)) {
             Like::create([

@@ -43,6 +43,7 @@ Route::group(
       Route::get('search', [PublicPostController::class, 'search']);
 
       Route::post('post/{id}/click', [LikeController::class, 'likePost']);
+      Route::get('/post/{postId}/likes', [LikeController::class, 'getLikesCount']);
 
       Route::get('categories', [PublicTagController::class, 'tags']);
       Route::get('category/{tag}', [PublicTagController::class, 'index']);

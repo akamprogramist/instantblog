@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 */
 
 /// this is old
-Route::middleware('auth:sanctum')->get('/profile', function () {
-    Route::get('profile', [ProfileController::class, 'index']);
-});
+
+
+Route::get('profile', [ProfileController::class, 'index'])->middleware(['auth:sanctum']);
